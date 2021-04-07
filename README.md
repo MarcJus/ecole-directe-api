@@ -9,7 +9,7 @@ API utilisant le module [node-ecole-directe](https://github.com/Androz2091/node-
 La date doit être au format YYYY-MM-DD
 
 ```http
-GET /devoirs?date=date
+GET /devoirs?date=<DATE>
 ```
 ### Reponse:
 ```json
@@ -114,23 +114,24 @@ Parametres:
 ### Reponse :
 ```json
 {
-  "devoir": "ie Kwyk",
-  "codePeriode": "A002",
-  "codeMatiere": "MATHS",
-  "libelleMatiere": "MATHEMATIQUES",
+  "devoir": "",
+  "codePeriode": "",
+  "codeMatiere": "",
+  "libelleMatiere": "",
   "codeSousMatiere": "",
-  "typeDevoir": "Intérrogation Ecrite",
+  "typeDevoir": "",
   "enLettre": false,
-  "coef": "0.25",
-  "noteSur": "20",
-  "valeur": "16",
+  "coef": "",
+  "noteSur": "",
+  "valeur": "",
   "nonSignificatif": false,
-  "date": "2020-12-01",
-  "dateSaisie": "2020-12-09",
+  "date": "",
+  "dateSaisie": "",
   "valeurisee": false,
-  "moyenneClasse": "17.67",
-  "minClasse": "12.00",
-  "maxClasse": "20.00",
+  "moyenneClasse": "",
+  "minClasse": "",
+  "maxClasse": "",
   "elementsProgramme": []
 }
 ```
+Les dates sont au format YYYY-MM-DD
