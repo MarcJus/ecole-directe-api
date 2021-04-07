@@ -110,6 +110,8 @@ Parametres:
 * HI-GE = Histoire-Géographie
 * MUSIQ = Musique
 * DESSIN = A-PLA
+* EPS = EPS
+* ELOQ = Eloquence
 
 ### Reponse :
 ```json
