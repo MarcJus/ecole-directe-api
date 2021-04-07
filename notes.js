@@ -26,6 +26,7 @@ function getNotes(properties) {
                 });
             }).catch(err => {
                 notesReturn == undefined;
+                console.log(err);
             });
         }));
         return notesReturn;

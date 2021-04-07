@@ -23,6 +23,7 @@ async function getNotes (properties: PropertiesNotes):Promise<object[]>{
             })
         }).catch(err => {
             notesReturn == undefined;
+            console.log(err);
         })
     })
     return notesReturn
