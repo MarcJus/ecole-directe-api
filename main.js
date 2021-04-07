@@ -33,7 +33,8 @@ app.get("/notes", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let query = req.query;
     let matiere = query.matiere == undefined ? undefined : query.matiere.toString().toUpperCase();
     let periode = query.periode == undefined ? undefined : query.periode.toString().toUpperCase();
-    yield notes_1.default.getNotes({ eleve: connection_1.default, matiere: matiere, periode: periode })
+    let note = query.note == undefined ? undefined : Number(query.note);
+    yield notes_1.default.getNotes({ eleve: connection_1.default, matiere: matiere, periode: periode, note: note })
         .then((value) => __awaiter(void 0, void 0, void 0, function* () {
         let reply = value;
         res.json(value);
