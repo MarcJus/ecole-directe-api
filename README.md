@@ -90,3 +90,7 @@ GET /devoirs?date=date
 ```
 
 La date est au format YYYY-MM-DD
+
+## Notes
+
+
