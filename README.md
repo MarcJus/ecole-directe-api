@@ -1,5 +1,7 @@
 # ecole-directe-api
 
+API utilisant le module [node-ecole-directe](https://github.com/Androz2091/node-ecole-directe) et le module [express](https://github.com/expressjs/express)
+
 ## Devoirs
 
 2. Avec date
@@ -70,7 +72,7 @@ GET /devoirs?date=date
 
 ```json
 {
-    "day": "2021-04-07",
+    "day": "",
     "devoirs": [
         {
             "matiere": "",
@@ -86,3 +88,5 @@ GET /devoirs?date=date
     ]
 }
 ```
+
+La date est au format YYYY-MM-DD
