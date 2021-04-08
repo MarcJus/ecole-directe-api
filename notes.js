@@ -19,8 +19,13 @@ function getNotes(properties) {
                 let notes = value.notes;
                 notes.forEach(note => {
                     if ((note.codeMatiere == properties.matiere || properties.matiere == undefined)
-                        && (note.codePeriode == properties.periode || properties.periode == undefined)
-                        && (note.valeur == properties.note || properties.note == undefined)) {
+                        && (note.codePeriode == properties.periode || properties.periode == undefined)) {
+                        if (properties.note != undefined) {
+                            if (note.valeur == properties.note)
+                                notesReturn.push(note);
+                        }
+                        else {
+                        }
                         notesReturn.push(note);
                     }
                 });
@@ -31,6 +36,15 @@ function getNotes(properties) {
         }));
         return notesReturn;
     });
+}
+function isHigherAndOrLower(note, properties) {
+    let higher = properties.higher;
+    let lower = properties.lower;
+    if ((note >= lower || lower == undefined)
+        && (note <= higher || higher == undefined)) {
+        return true;
+    }
+    return false;
 }
 var Periode;
 (function (Periode) {

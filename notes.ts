@@ -4,7 +4,9 @@ interface PropertiesNotes{
     eleve: Promise<ec.Eleve | ec.Famille>,
     matiere?: string,
     periode?: string,
-    note?: number
+    note?: number,
+    higher?: number
+    lower?: number
 }
 
 async function getNotes (properties: PropertiesNotes):Promise<object[]>{
@@ -16,8 +18,12 @@ async function getNotes (properties: PropertiesNotes):Promise<object[]>{
             let notes = (value as any).notes;
             notes.forEach(note => {
                 if((note.codeMatiere == properties.matiere || properties.matiere == undefined) 
-                && (note.codePeriode == properties.periode || properties.periode == undefined)
-                && (note.valeur == properties.note || properties.note == undefined)){
+                && (note.codePeriode == properties.periode || properties.periode == undefined)){
+                    if(properties.note != undefined){
+                        if(note.valeur == properties.note)notesReturn.push(note)
+                    } else {
+                        
+                    }
                     notesReturn.push(note);
                 }  
             })
@@ -27,6 +33,16 @@ async function getNotes (properties: PropertiesNotes):Promise<object[]>{
         })
     })
     return notesReturn
+}
+
+function isHigherAndOrLower(note: number, properties: PropertiesNotes): boolean{
+    let higher:number = properties.higher
+    let lower:number = properties.lower
+    if((note >= lower || lower == undefined)
+    && (note <= higher || higher == undefined)){
+        return true
+    }
+    return false
 }
 
 enum Periode{
