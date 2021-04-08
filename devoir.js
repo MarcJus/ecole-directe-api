@@ -17,42 +17,56 @@ function getDevoir(properties) {
     return __awaiter(this, void 0, void 0, function* () {
         let returnDevoir = new Array();
         const elevePromise = properties.eleve;
-        yield elevePromise.then((compte) => __awaiter(this, void 0, void 0, function* () {
-            const eleve = compte;
-            if (properties.date != undefined) {
-                yield eleve.fetchCahierDeTexteJour(properties.date)
-                    .then(value => {
-                    value.forEach(devoirs => {
-                        let devoir = devoirs;
-                        let contenuEncoded = devoir.matiere.aFaire.contenu;
-                        if (contenuEncoded != undefined)
-                            devoir.matiere.aFaire.contenu = decodeText(contenuEncoded);
-                        if (devoir.matiere.contenuDeSeance != undefined) {
-                            if (devoir.matiere.contenuDeSeance.contenu != '') {
-                                let seanceEncoded = devoir.matiere.aFaire.contenuDeSeance.contenu;
-                                let decoded = decodeText(seanceEncoded);
-                                devoir.matiere.aFaire.contenuDeSeance.contenu = decoded;
-                                devoir.matiere.contenuDeSeance.contenu = decoded;
+        try {
+            yield elevePromise.then((compte) => __awaiter(this, void 0, void 0, function* () {
+                const eleve = compte;
+                if (properties.date != undefined) {
+                    yield eleve.fetchCahierDeTexteJour(properties.date)
+                        .then(value => {
+                        value.forEach(devoirs => {
+                            if (devoirs == undefined) {
+                                console.log("devoirs null");
+                                return returnDevoir;
                             }
-                        }
-                        returnDevoir.push(devoir);
+                            let devoir = devoirs;
+                            if (devoir.matiere.aFaire != undefined) {
+                                let contenuEncoded = devoir.matiere.aFaire.contenu;
+                                if (contenuEncoded != undefined)
+                                    devoir.matiere.aFaire.contenu = decodeText(contenuEncoded);
+                                if (devoir.matiere.contenuDeSeance != undefined) {
+                                    if (devoir.matiere.contenuDeSeance.contenu != '') {
+                                        let seanceEncoded = devoir.matiere.aFaire.contenuDeSeance.contenu;
+                                        let decoded = decodeText(seanceEncoded);
+                                        devoir.matiere.aFaire.contenuDeSeance.contenu = decoded;
+                                        devoir.matiere.contenuDeSeance.contenu = decoded;
+                                    }
+                                }
+                                returnDevoir.push(devoir);
+                            }
+                            else {
+                                console.log("Aucun contenu : " + devoir.matiere.matiere);
+                            }
+                        });
+                    }).catch(err => {
+                        console.log(err);
                     });
-                }).catch(err => {
-                    console.log(err);
-                });
-            }
-            else {
-                yield eleve.fetchCahierDeTexte()
-                    .then(value => {
-                    value.forEach(devoirs => {
-                        let devoir = devoirs;
-                        returnDevoir.push(devoir);
+                }
+                else {
+                    yield eleve.fetchCahierDeTexte()
+                        .then(value => {
+                        value.forEach(devoirs => {
+                            let devoir = devoirs;
+                            returnDevoir.push(devoir);
+                        });
+                    }).catch(err => {
+                        console.log(err);
                     });
-                }).catch(err => {
-                    console.log(err);
-                });
-            }
-        }));
+                }
+            }));
+        }
+        catch (e) {
+            console.log(e);
+        }
         return returnDevoir;
     });
 }
