@@ -34,7 +34,9 @@ app.get("/notes", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let matiere = query.matiere == undefined ? undefined : query.matiere.toString().toUpperCase();
     let periode = query.periode == undefined ? undefined : query.periode.toString().toUpperCase();
     let note = query.note == undefined ? undefined : Number(query.note);
-    yield notes_1.default.getNotes({ eleve: connection_1.default, matiere: matiere, periode: periode, note: note })
+    let higher = query.higher == undefined ? undefined : Number(query.higher);
+    let lower = query.lower == undefined ? undefined : Number(query.lower);
+    yield notes_1.default.getNotes({ eleve: connection_1.default, matiere: matiere, periode: periode, note: note, lower: lower, higher: higher })
         .then((value) => __awaiter(void 0, void 0, void 0, function* () {
         let reply = value;
         res.json(value);

@@ -25,8 +25,11 @@ function getNotes(properties) {
                                 notesReturn.push(note);
                         }
                         else {
+                            if (isHigherAndOrLower(note, properties)) {
+                                notesReturn.push(note);
+                            }
+                            ;
                         }
-                        notesReturn.push(note);
                     }
                 });
             }).catch(err => {
@@ -40,8 +43,8 @@ function getNotes(properties) {
 function isHigherAndOrLower(note, properties) {
     let higher = properties.higher;
     let lower = properties.lower;
-    if ((note >= lower || lower == undefined)
-        && (note <= higher || higher == undefined)) {
+    if ((note.valeur >= lower || properties.lower == undefined)
+        && (note.valeur <= higher || properties.higher == undefined)) {
         return true;
     }
     return false;

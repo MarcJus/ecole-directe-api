@@ -24,7 +24,9 @@ app.get("/notes",async (req: e.Request, res: e.Response) => {
     let matiere: string = query.matiere == undefined ? undefined : query.matiere.toString().toUpperCase();
     let periode: string = query.periode == undefined ? undefined : query.periode.toString().toUpperCase();
     let note: number = query.note == undefined ? undefined : Number(query.note);
-    await notes.getNotes({eleve: connection, matiere: matiere, periode: periode, note: note})
+    let higher: number = query.higher == undefined ? undefined : Number(query.higher);
+    let lower: number = query.lower == undefined ? undefined : Number(query.lower);
+    await notes.getNotes({eleve: connection, matiere: matiere, periode: periode, note: note, lower: lower, higher: higher})
     .then(async value => {
         let reply: object[] = value
         res.json(value);

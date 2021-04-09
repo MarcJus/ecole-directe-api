@@ -22,10 +22,11 @@ async function getNotes (properties: PropertiesNotes):Promise<object[]>{
                     if(properties.note != undefined){
                         if(note.valeur == properties.note)notesReturn.push(note)
                     } else {
-                        
+                        if(isHigherAndOrLower(note, properties)){
+                            notesReturn.push(note)
+                        };
                     }
-                    notesReturn.push(note);
-                }  
+                }
             })
         }).catch(err => {
             notesReturn == undefined;
@@ -35,11 +36,11 @@ async function getNotes (properties: PropertiesNotes):Promise<object[]>{
     return notesReturn
 }
 
-function isHigherAndOrLower(note: number, properties: PropertiesNotes): boolean{
+function isHigherAndOrLower(note: any, properties: PropertiesNotes): boolean{
     let higher:number = properties.higher
     let lower:number = properties.lower
-    if((note >= lower || lower == undefined)
-    && (note <= higher || higher == undefined)){
+    if((note.valeur >= lower || properties.lower == undefined)
+    && (note.valeur <= higher || properties.higher == undefined)){
         return true
     }
     return false
