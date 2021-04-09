@@ -56,7 +56,11 @@ function getDevoir(properties) {
                         .then(value => {
                         value.forEach(devoirs => {
                             let devoir = devoirs;
-                            returnDevoir.push(devoir);
+                            let today = new Date();
+                            let dateISO = today.toISOString().substr(0, 10);
+                            if (devoir.day != dateISO) {
+                                returnDevoir.push(devoir);
+                            }
                         });
                     }).catch(err => {
                         console.log(err);
