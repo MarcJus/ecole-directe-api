@@ -94,11 +94,14 @@ La date est au format YYYY-MM-DD
 ## Notes
 
 ```http
-GET /notes?periode=<PERIODE>&matiere=<MATIERE>
+GET /notes?periode=<PERIODE>&matiere=<MATIERE>&note=<NOTE>&lower=<LOWER>&higher=<HIGHER>
 ```
 Parametres: 
-* periode (optionnel) : Trimestre de l'année (A001, A002, A003)
-* matiere (optionnel) : Code de la matiere 
+* periode (optionnel) string : Trimestre de l'année (A001, A002, A003)
+* matiere (optionnel) string : Code de la matiere 
+* note (optionnel) number : Chercher un contrôle en fonction de la note
+* lower (optionnel) number : Toutes les notes supérieures à ce paramètre (ATTENTION ! Non pris en compte si le paramètre "note" est utilisé)
+* higher (optionnel) number : Toutes les notes inferieures à ce paramètre (ATTENTION ! Non pris en compte si le paramètre "note" est utilisé)
 
 ### Code des matières:
 * MATHS = Mathématiques
