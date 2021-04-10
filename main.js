@@ -47,11 +47,16 @@ app.get("/notes/moyenne", (req, res) => __awaiter(void 0, void 0, void 0, functi
     let query = req.query;
     if (query.periode != undefined) {
         let periode = query.periode.toString();
-        yield notes_1.default.getMoyenne({ eleve: connection_1.default, periode: periode }).then(value => {
-            res.json(value);
-        }).catch(err => {
-            res.end(err);
-        });
+        if (periode == "A001" || periode == "A002" || periode == "A003") {
+            yield notes_1.default.getMoyenne({ eleve: connection_1.default, periode: periode }).then(value => {
+                res.json(value);
+            }).catch(err => {
+                res.end(err);
+            });
+        }
+        else {
+            res.json({ success: false, err: "Mauvaise periode" });
+        }
     }
     else {
         res.json({ success: false, err: "Periode non specifie" });

@@ -38,11 +38,15 @@ app.get("/notes/moyenne", async (req: e.Request, res: e.Response) => {
     let query = req.query;
     if(query.periode != undefined){
         let periode = query.periode.toString();
-        await notes.getMoyenne({eleve: connection, periode: periode}).then(value => {
-            res.json(value)
-        }).catch(err => {
-            res.end(err)
-        })
+        if(periode == "A001" || periode == "A002" || periode == "A003"){
+            await notes.getMoyenne({eleve: connection, periode: periode}).then(value => {
+                res.json(value)
+            }).catch(err => {
+                res.end(err)
+            })
+        } else {
+            res.json({success: false, err: "Mauvaise periode"})
+        }
     } else {
         res.json({success: false, err: "Periode non specifie"})
     }
