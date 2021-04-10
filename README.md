@@ -116,6 +116,11 @@ Parametres:
 * EPS = EPS
 * ELOQ = Eloquence
 
+### Code des periodes:
+* A001 = premier trimestre
+* A002 = deuxième trimestre
+* A003 = troisième trimestre
+
 ### Reponse :
 ```json
 {
@@ -140,3 +145,15 @@ Parametres:
 }
 ```
 Les dates sont au format YYYY-MM-DD
+
+## Moyennes
+
+```http
+GET /notes/moyennes?periode=<PERIODE>
+```
+
+Parametres:
+* periode (obligatoire) string : Trimestre de la moyenne. Le code est le même que pour les notes.
+
+### Reponse : 
+* moyenne: string
