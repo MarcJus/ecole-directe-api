@@ -27,12 +27,25 @@ app.get("/notes",async (req: e.Request, res: e.Response) => {
     let higher: number = query.higher == undefined ? undefined : Number(query.higher);
     let lower: number = query.lower == undefined ? undefined : Number(query.lower);
     await notes.getNotes({eleve: connection, matiere: matiere, periode: periode, note: note, lower: lower, higher: higher})
-    .then(async value => {
-        let reply: object[] = value
-        res.json(value);
+    .then(value => {
+        res.send(value);
     }).catch(err => {
         res.json({error: err})
     })
+})
+
+app.get("/notes/moyenne", async (req: e.Request, res: e.Response) => {
+    let query = req.query;
+    if(query.periode != undefined){
+        let periode = query.periode.toString();
+        await notes.getMoyenne({eleve: connection, periode: periode}).then(value => {
+            res.json(value)
+        }).catch(err => {
+            res.end(err)
+        })
+    } else {
+        res.json({success: false, err: "Periode non specifie"})
+    }
 })
 
 app.get("/devoirs", async (req: e.Request, res: e.Response) => {

@@ -37,12 +37,25 @@ app.get("/notes", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let higher = query.higher == undefined ? undefined : Number(query.higher);
     let lower = query.lower == undefined ? undefined : Number(query.lower);
     yield notes_1.default.getNotes({ eleve: connection_1.default, matiere: matiere, periode: periode, note: note, lower: lower, higher: higher })
-        .then((value) => __awaiter(void 0, void 0, void 0, function* () {
-        let reply = value;
-        res.json(value);
-    })).catch(err => {
+        .then(value => {
+        res.send(value);
+    }).catch(err => {
         res.json({ error: err });
     });
+}));
+app.get("/notes/moyenne", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let query = req.query;
+    if (query.periode != undefined) {
+        let periode = query.periode.toString();
+        yield notes_1.default.getMoyenne({ eleve: connection_1.default, periode: periode }).then(value => {
+            res.json(value);
+        }).catch(err => {
+            res.end(err);
+        });
+    }
+    else {
+        res.json({ success: false, err: "Periode non specifie" });
+    }
 }));
 app.get("/devoirs", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let query = req.query;

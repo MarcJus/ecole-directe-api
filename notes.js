@@ -40,6 +40,25 @@ function getNotes(properties) {
         return notesReturn;
     });
 }
+function getMoyenne(properties) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let moyenneReturn = "";
+        yield properties.eleve.then((compte) => __awaiter(this, void 0, void 0, function* () {
+            const eleve = compte;
+            yield eleve.fetchNotes()
+                .then(value => {
+                let periodes = value.periodes;
+                periodes.forEach(periode => {
+                    if (periode.idPeriode == properties.periode) {
+                        let moyenne = periode.ensembleMatieres.moyenneGenerale;
+                        moyenneReturn = moyenne;
+                    }
+                });
+            });
+        }));
+        return moyenneReturn;
+    });
+}
 function isHigherAndOrLower(note, properties) {
     let higher = properties.higher;
     let lower = properties.lower;
@@ -72,6 +91,7 @@ var Matiere;
 })(Matiere || (Matiere = {}));
 exports.default = {
     getNotes,
+    getMoyenne,
     Periode,
     Matiere
 };

@@ -9,6 +9,11 @@ interface PropertiesNotes{
     lower?: number
 }
 
+interface PropertiesMoyenne{
+    eleve: Promise<ec.Eleve | ec.Famille>,
+    periode: string,
+}
+
 async function getNotes (properties: PropertiesNotes):Promise<object[]>{
     let notesReturn: object[] = [];
     await properties.eleve.then(async compte => {
@@ -34,6 +39,24 @@ async function getNotes (properties: PropertiesNotes):Promise<object[]>{
         })
     })
     return notesReturn
+}
+
+async function getMoyenne(properties: PropertiesMoyenne): Promise<string>{
+    let moyenneReturn: string = "";
+    await properties.eleve.then(async compte => {
+        const eleve = (compte as ec.Eleve);
+        await eleve.fetchNotes()
+        .then(value => {
+            let periodes:any[] = (value as any).periodes;
+            periodes.forEach(periode => {
+                if(periode.idPeriode == properties.periode){
+                    let moyenne: string = periode.ensembleMatieres.moyenneGenerale;
+                    moyenneReturn = moyenne
+                }
+            })
+        })
+    })
+    return moyenneReturn;
 }
 
 function isHigherAndOrLower(note: any, properties: PropertiesNotes): boolean{
@@ -69,6 +92,7 @@ enum Matiere{
 
 export default {
     getNotes,
+    getMoyenne,
     Periode,
     Matiere
 }
