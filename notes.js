@@ -59,6 +59,55 @@ function getMoyenne(properties) {
         return moyenneReturn;
     });
 }
+function getPreMoyenne(connection) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let moyenneReturn = 0;
+        yield connection.then((compte) => __awaiter(this, void 0, void 0, function* () {
+            const eleve = compte;
+            yield eleve.fetchNotes()
+                .then(value => {
+                const notes = value.notes;
+                let nombreDeNotes = 0;
+                let notesTotal = 0;
+                notes.forEach(note => {
+                    if (note.codePeriode == "A003") {
+                        let valeur = 0;
+                        let coef = 0;
+                        if (!note.valeur.startsWith("Abs") && note.valeur != "") {
+                            valeur = Number(note.valeur.replace(",", "."));
+                            coef = Number(note.coef);
+                            if (Number(note.noteSur) != 20) {
+                                valeur = Number(valeur) * 20 / Number(note.noteSur);
+                                console.log("matiere : " + note.codeMatiere);
+                            }
+                            nombreDeNotes += coef;
+                            notesTotal += (valeur * coef);
+                            console.log("note : " + valeur);
+                            console.log("coef : " + coef);
+                            console.log("total des notes : " + notesTotal + "\n");
+                        }
+                    }
+                });
+                moyenneReturn = notesTotal / nombreDeNotes;
+                console.log("note total : " + notesTotal);
+                console.log("denominateur : " + nombreDeNotes);
+            });
+        }));
+        return moyenneReturn;
+    });
+}
+function getNotesAndPeriode(connection) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let returnNotes = [];
+        yield connection.then((compte) => __awaiter(this, void 0, void 0, function* () {
+            const eleve = compte;
+            yield eleve.fetchNotes().then(value => {
+                returnNotes = value;
+            });
+        }));
+        return returnNotes;
+    });
+}
 function isHigherAndOrLower(note, properties) {
     let higher = properties.higher;
     let lower = properties.lower;
@@ -92,6 +141,8 @@ var Matiere;
 exports.default = {
     getNotes,
     getMoyenne,
+    getPreMoyenne,
+    getNotesAndPeriode,
     Periode,
     Matiere
 };

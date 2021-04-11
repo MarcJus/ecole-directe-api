@@ -40,16 +40,40 @@ app.get("/notes/moyenne", async (req: e.Request, res: e.Response) => {
         let periode = query.periode.toString();
         if(periode == "A001" || periode == "A002" || periode == "A003"){
             await notes.getMoyenne({eleve: connection, periode: periode}).then(value => {
-                res.json(value)
+                res.json({success: true, moyenne: value})
             }).catch(err => {
-                res.end(err)
+                res.status(500).json({success: false, err: err})
             })
         } else {
-            res.json({success: false, err: "Mauvaise periode"})
+            res.status(400).json({success: false, err: "Mauvaise periode"})
         }
     } else {
-        res.json({success: false, err: "Periode non specifie"})
+        res.status(400).json({success: false, err: "Periode non specifie"})
     }
+})
+
+app.get("/notes/moyenne/preview", async (req: e.Request, res: e.Response) => {
+    let query = req.query;
+    if(query.periode != undefined){
+        let periode = query.periode.toString();
+        if(periode == "A001" || periode == "A002" || periode == "A003"){
+            await notes.getPreMoyenne(connection).then(value => {
+                res.json({success: true, moyenne: value})
+            }).catch(err => {
+                res.status(500).send(err)
+            })
+        } else {
+            res.status(400).json({success: false, err: "Mauvaise periode"})
+        }
+    } else {
+        res.status(400).json({success: false, err: "Periode non specifie"})
+    }
+})
+
+app.get("/fetchNotes", async (req: e.Request, res: e.Response) => {
+    await notes.getNotesAndPeriode(connection).then(value => {
+        res.json(value);
+    })
 })
 
 app.get("/devoirs", async (req: e.Request, res: e.Response) => {

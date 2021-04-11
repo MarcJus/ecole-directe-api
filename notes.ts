@@ -59,6 +59,53 @@ async function getMoyenne(properties: PropertiesMoyenne): Promise<string>{
     return moyenneReturn;
 }
 
+async function getPreMoyenne(connection: Promise<ec.Eleve | ec.Famille>){
+    let moyenneReturn: number = 0;
+    await connection.then(async compte => {
+        const eleve = (compte as ec.Eleve);
+        await eleve.fetchNotes()
+        .then(value => {
+            const notes: any[] = (value as any).notes;
+            let nombreDeNotes: number = 0;
+            let notesTotal: number = 0;
+            notes.forEach(note => {
+                if(note.codePeriode == "A003"){
+                    let valeur: number = 0;
+                    let coef: number = 0;
+                    if(!(note.valeur as string).startsWith("Abs") && (note.valeur as string) != ""){
+                        valeur = Number((note.valeur as string).replace(",", "."));
+                        coef = Number(note.coef);
+                        if(Number(note.noteSur) != 20){
+                            valeur = Number(valeur) * 20 / Number(note.noteSur);
+                            console.log("matiere : "+note.codeMatiere)
+                        }
+                        nombreDeNotes += coef;
+                        notesTotal += (valeur * coef);
+                        console.log("note : "+valeur)
+                        console.log("coef : "+coef)
+                        console.log("total des notes : "+notesTotal+"\n")
+                    }
+                }
+            })
+            moyenneReturn = notesTotal / nombreDeNotes
+            console.log("note total : "+notesTotal);
+            console.log("denominateur : "+nombreDeNotes)
+        })
+    });
+    return moyenneReturn;
+}
+
+async function getNotesAndPeriode(connection: Promise<ec.Eleve | ec.Famille>){
+    let returnNotes: object[] = [];
+    await connection.then(async compte => {
+        const eleve = (compte as ec.Eleve);
+        await eleve.fetchNotes().then(value => {
+            returnNotes = (value as any);
+        })
+    })
+    return returnNotes;
+}
+
 function isHigherAndOrLower(note: any, properties: PropertiesNotes): boolean{
     let higher:number = properties.higher
     let lower:number = properties.lower
@@ -93,6 +140,8 @@ enum Matiere{
 export default {
     getNotes,
     getMoyenne,
+    getPreMoyenne,
+    getNotesAndPeriode,
     Periode,
     Matiere
 }

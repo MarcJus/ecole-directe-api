@@ -49,18 +49,42 @@ app.get("/notes/moyenne", (req, res) => __awaiter(void 0, void 0, void 0, functi
         let periode = query.periode.toString();
         if (periode == "A001" || periode == "A002" || periode == "A003") {
             yield notes_1.default.getMoyenne({ eleve: connection_1.default, periode: periode }).then(value => {
-                res.json(value);
+                res.json({ success: true, moyenne: value });
             }).catch(err => {
-                res.end(err);
+                res.status(500).json({ success: false, err: err });
             });
         }
         else {
-            res.json({ success: false, err: "Mauvaise periode" });
+            res.status(400).json({ success: false, err: "Mauvaise periode" });
         }
     }
     else {
-        res.json({ success: false, err: "Periode non specifie" });
+        res.status(400).json({ success: false, err: "Periode non specifie" });
     }
+}));
+app.get("/notes/moyenne/preview", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let query = req.query;
+    if (query.periode != undefined) {
+        let periode = query.periode.toString();
+        if (periode == "A001" || periode == "A002" || periode == "A003") {
+            yield notes_1.default.getPreMoyenne(connection_1.default).then(value => {
+                res.json({ success: true, moyenne: value });
+            }).catch(err => {
+                res.status(500).send(err);
+            });
+        }
+        else {
+            res.status(400).json({ success: false, err: "Mauvaise periode" });
+        }
+    }
+    else {
+        res.status(400).json({ success: false, err: "Periode non specifie" });
+    }
+}));
+app.get("/fetchNotes", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    yield notes_1.default.getNotesAndPeriode(connection_1.default).then(value => {
+        res.json(value);
+    });
 }));
 app.get("/devoirs", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let query = req.query;
