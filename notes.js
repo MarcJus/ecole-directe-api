@@ -19,7 +19,7 @@ function getNotes(properties) {
                 let notes = value.notes;
                 notes.forEach(note => {
                     if ((note.codeMatiere == properties.matiere || properties.matiere == undefined)
-                        && (note.codePeriode == properties.periode || properties.periode == undefined)) {
+                        && (note.codePeriode == properties.periode.toString() || properties.periode == undefined)) {
                         if (properties.note != undefined) {
                             if (note.valeur == properties.note)
                                 notesReturn.push(note);

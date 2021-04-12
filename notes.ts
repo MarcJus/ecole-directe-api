@@ -3,7 +3,7 @@ import * as ec from 'node-ecole-directe'
 interface PropertiesNotes{
     eleve: Promise<ec.Eleve | ec.Famille>,
     matiere?: string,
-    periode?: string,
+    periode?: string | Periode,
     note?: number,
     higher?: number
     lower?: number
@@ -23,7 +23,7 @@ async function getNotes (properties: PropertiesNotes):Promise<object[]>{
             let notes = (value as any).notes;
             notes.forEach(note => {
                 if((note.codeMatiere == properties.matiere || properties.matiere == undefined) 
-                && (note.codePeriode == properties.periode || properties.periode == undefined)){
+                && (note.codePeriode == properties.periode.toString() || properties.periode == undefined)){
                     if(properties.note != undefined){
                         if(note.valeur == properties.note)notesReturn.push(note)
                     } else {
@@ -121,6 +121,7 @@ enum Periode{
     A002 = "A002",
     A003 = "A003"
 }
+
 
 enum Matiere{
     FRANC = "FRANC",

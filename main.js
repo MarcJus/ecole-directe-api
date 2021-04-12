@@ -49,7 +49,7 @@ app.get("/notes/moyenne", (req, res) => __awaiter(void 0, void 0, void 0, functi
         let periode = query.periode.toString();
         if (periode == "A001" || periode == "A002" || periode == "A003") {
             yield notes_1.default.getMoyenne({ eleve: connection_1.default, periode: periode }).then(value => {
-                res.json({ success: true, moyenne: value });
+                res.send(value);
             }).catch(err => {
                 res.status(500).json({ success: false, err: err });
             });
