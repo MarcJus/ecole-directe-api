@@ -3,7 +3,7 @@ import * as ec from 'node-ecole-directe'
 interface PropertiesNotes{
     eleve: Promise<ec.Eleve | ec.Famille>,
     matiere?: string,
-    periode?: string | Periode,
+    periode?: string,
     note?: number,
     higher?: number
     lower?: number

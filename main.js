@@ -68,7 +68,7 @@ app.get("/notes/moyenne/preview", (req, res) => __awaiter(void 0, void 0, void 0
         let periode = query.periode.toString();
         if (periode == "A001" || periode == "A002" || periode == "A003") {
             yield notes_1.default.getPreMoyenne(connection_1.default).then(value => {
-                res.json({ success: true, moyenne: value });
+                res.send(value);
             }).catch(err => {
                 res.status(500).send(err);
             });
