@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 function getEdt(elevePromise) {
     return __awaiter(this, void 0, void 0, function* () {
-        let returnEdt = [];
+        const returnEdt = [];
         yield elevePromise.then((compte) => __awaiter(this, void 0, void 0, function* () {
             const eleve = compte;
         }));

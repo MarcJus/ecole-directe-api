@@ -19,6 +19,15 @@ const messagerie_1 = __importDefault(require("./messagerie"));
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const app = express_1.default();
+function nombreNotes() {
+    return __awaiter(this, void 0, void 0, function* () {
+        yield notes_1.default.getNotes({ eleve: connection_1.default, matiere: "EPS" })
+            .then(value => {
+            console.log(value.length);
+        });
+    });
+}
+nombreNotes();
 app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: false }));
 app.use((req, res, next) => {
@@ -30,13 +39,16 @@ app.get("/", (req, res) => {
     res.end();
 });
 app.get("/notes", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let query = req.query;
-    let matiere = query.matiere == undefined ? undefined : query.matiere.toString().toUpperCase();
-    let periode = query.periode == undefined ? undefined : query.periode.toString().toUpperCase();
-    let note = query.note == undefined ? undefined : Number(query.note);
-    let higher = query.higher == undefined ? undefined : Number(query.higher);
-    let lower = query.lower == undefined ? undefined : Number(query.lower);
-    yield notes_1.default.getNotes({ eleve: connection_1.default, matiere: matiere, periode: periode, note: note, lower: lower, higher: higher })
+    const query = req.query;
+    const matiere = query.matiere == undefined ?
+        undefined : query.matiere.toString().toUpperCase();
+    const periode = query.periode == undefined ?
+        undefined : query.periode.toString().toUpperCase();
+    const note = query.note == undefined ? undefined : Number(query.note);
+    const higher = query.higher == undefined ? undefined : Number(query.higher);
+    const lower = query.lower == undefined ? undefined : Number(query.lower);
+    yield notes_1.default.getNotes({ eleve: connection_1.default, matiere: matiere,
+        periode: periode, note: note, lower: lower, higher: higher })
         .then(value => {
         res.send(value);
     }).catch(err => {
@@ -44,9 +56,9 @@ app.get("/notes", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     });
 }));
 app.get("/notes/moyenne", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let query = req.query;
+    const query = req.query;
     if (query.periode != undefined) {
-        let periode = query.periode.toString();
+        const periode = query.periode.toString();
         if (periode == "A001" || periode == "A002" || periode == "A003") {
             yield notes_1.default.getMoyenne({ eleve: connection_1.default, periode: periode }).then(value => {
                 res.send(value);
@@ -63,9 +75,9 @@ app.get("/notes/moyenne", (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 }));
 app.get("/notes/moyenne/preview", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let query = req.query;
+    const query = req.query;
     if (query.periode != undefined) {
-        let periode = query.periode.toString();
+        const periode = query.periode.toString();
         if (periode == "A001" || periode == "A002" || periode == "A003") {
             yield notes_1.default.getPreMoyenne(connection_1.default).then(value => {
                 res.send(value);
@@ -87,10 +99,11 @@ app.get("/fetchNotes", (req, res) => __awaiter(void 0, void 0, void 0, function*
     });
 }));
 app.get("/devoirs", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let query = req.query;
-    let date = query.date == undefined ? undefined : query.date.toString().replace("/", "-").replace("/", "-");
+    const query = req.query;
+    const date = query.date == undefined ? undefined :
+        query.date.toString().replace("/", "-").replace("/", "-");
     yield devoir_1.default.getDevoir({ eleve: connection_1.default, date: date }).then(value => {
-        let reply = value;
+        const reply = value;
         res.json(reply);
     }).catch(err => {
         res.json({ error: err });
@@ -107,19 +120,19 @@ app.get("/edt", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send("Edt");
 }));
 app.get("/shortcuts/devoirs", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let reply = "test";
-    let dates = [];
+    const reply = "test";
+    const dates = [];
     yield devoir_1.default.getDevoir({ eleve: connection_1.default })
         .then((value) => {
         value.forEach(devoirs => {
-            let devoir = devoirs;
+            const devoir = devoirs;
             dates.push(devoir.day);
         });
     });
     dates.forEach((date) => __awaiter(void 0, void 0, void 0, function* () {
         yield devoir_1.default.getDevoir({ eleve: connection_1.default, date: date })
             .then((value) => {
-            let devoir = value[0];
+            const devoir = value[0];
             console.log(devoir.matiere);
         });
     }));
