@@ -1,9 +1,10 @@
 import connection from "./connection"
-import notes, {Matiere, Trimestre} from "./notes"
+import notes from "./notes"
 import devoir from "./devoir"
 import message from "./messagerie"
 import e, {Request, Response, Express} from "express"
 import bodyParser from "body-parser"
+import {Matiere, Trimestre} from "../typesApi/typesNotesAndPeriode"
 
 const app:Express = e()
 
@@ -14,18 +15,17 @@ async function nombreNotes(){
     })
 }
 
-nombreNotes()
-
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 app.use((req, res, next) => {
-    res.set("Access-Control-Allow-Origin", "*")
+    res.set("Access-Control-Allow-Origin", "*") 
     next()
 })
 
 app.get("/", (req: Request, res: Response) => {
-    console.log("requete")
-    res.end()
+    res.header("Content-Type: text/html")
+    res.send(
+    "API Ecole Directe <a href=\"https://github.com/MarcJus/private-api-ecole-directe\">github</a>")
 })
 
 app.get("/notes",async (req: Request, res: Response) => {

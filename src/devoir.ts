@@ -1,5 +1,7 @@
 import * as ec from "node-ecole-directe"
 import ent from "ent"
+import {Day} from "../typesApi/typesDevoirs"
+import {DevoirJour} from "../typesApi/typesDevoirsJour"
 
 namespace Devoir{
     export async function getDevoir(properties: PropertiesDevoir): Promise<object[]>{
@@ -11,10 +13,10 @@ namespace Devoir{
                 if(properties.date != undefined){
                     await eleve.fetchCahierDeTexteJour(properties.date)
                     .then(value => {
-                        value.forEach(devoirs => {
+                        const devoirs: DevoirJour[] = (value as DevoirJour[])
+                        devoirs.forEach(devoir => {
                             if(devoirs == undefined)
-                            {console.log("devoirs null"); return returnDevoir}
-                            const devoir = (devoirs as any)
+                                {console.log("devoirs null"); return returnDevoir}
                             if(devoir.matiere.aFaire != undefined){
                                 const contenuEncoded:string = devoir.matiere.aFaire.contenu
                                 if(contenuEncoded != undefined)
@@ -39,12 +41,13 @@ namespace Devoir{
                 } else {
                     await eleve.fetchCahierDeTexte()
                     .then(value => {
-                        value.forEach(devoirs => {
-                            const devoir: any = (devoirs as any)
+                        const data: Day[] = (value as Day[])
+                        console.log(data)
+                        data.forEach(day => {
                             const today = new Date()
                             const dateISO = today.toISOString().substr(0, 10)
-                            if(devoir.day != dateISO){
-                                returnDevoir.push(devoir)
+                            if(day.day != dateISO){
+                                returnDevoir.push(day)
                             }
                         })
                     }).catch(err => {

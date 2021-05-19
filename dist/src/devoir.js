@@ -24,12 +24,12 @@ var Devoir;
                     if (properties.date != undefined) {
                         yield eleve.fetchCahierDeTexteJour(properties.date)
                             .then(value => {
-                            value.forEach(devoirs => {
+                            const devoirs = value;
+                            devoirs.forEach(devoir => {
                                 if (devoirs == undefined) {
                                     console.log("devoirs null");
                                     return returnDevoir;
                                 }
-                                const devoir = devoirs;
                                 if (devoir.matiere.aFaire != undefined) {
                                     const contenuEncoded = devoir.matiere.aFaire.contenu;
                                     if (contenuEncoded != undefined)
@@ -55,12 +55,13 @@ var Devoir;
                     else {
                         yield eleve.fetchCahierDeTexte()
                             .then(value => {
-                            value.forEach(devoirs => {
-                                const devoir = devoirs;
+                            const data = value;
+                            console.log(data);
+                            data.forEach(day => {
                                 const today = new Date();
                                 const dateISO = today.toISOString().substr(0, 10);
-                                if (devoir.day != dateISO) {
-                                    returnDevoir.push(devoir);
+                                if (day.day != dateISO) {
+                                    returnDevoir.push(day);
                                 }
                             });
                         }).catch(err => {

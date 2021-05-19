@@ -20,7 +20,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const ec = __importStar(require("node-ecole-directe"));
-const login = __importStar(require("./dist/login.json"));
+const login = __importStar(require("../dist/login.json"));
 const session = new ec.Session();
 const connection = session.connexion(login.username, login.password);
 exports.default = connection;

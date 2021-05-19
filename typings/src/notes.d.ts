@@ -1,5 +1,5 @@
 import ec from "node-ecole-directe";
-import { Note, DataNotes } from "./types";
+import { Note, DataNotes, Matiere, Trimestre } from "../typesApi/typesNotesAndPeriode";
 declare namespace Notes {
     interface PropertiesNotes {
         eleve: Promise<ec.Eleve | ec.Famille>;
@@ -18,7 +18,5 @@ declare namespace Notes {
     function getPreMoyenne(connection: Promise<ec.Eleve | ec.Famille>): Promise<number>;
     function getNotesAndPeriode(connection: Promise<ec.Eleve | ec.Famille>): Promise<DataNotes>;
     function isHigherAndOrLower(note: Note, properties: PropertiesNotes): boolean;
-    type Matiere = "FRANC" | "MATHS" | "ESP2" | "TECHN" | "PH_CH" | "ANGL1" | "SVT" | "EPS" | "A-PLA" | "HI-GE" | "ELOQ" | "MUSIQ";
-    type Trimestre = "A001" | "A002" | "A003";
 }
 export = Notes;

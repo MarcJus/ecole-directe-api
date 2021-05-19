@@ -1,4 +1,5 @@
 namespace Types{
+
   export interface NotesAndPeriodes {
     code: number;
     token: string;
@@ -144,7 +145,7 @@ namespace Types{
   export interface Periode {
     idPeriode: string;
     codePeriode: string;
-    periode: string;
+    periode: Trimestre;
     annuel: boolean;
     dateDebut: string;
     dateFin: string;
@@ -171,7 +172,7 @@ namespace Types{
   
   export interface Discipline {
     id: number;
-    codeMatiere: string;
+    codeMatiere: Matiere;
     codeSousMatiere: string;
     discipline: string;
     moyenne: string;
@@ -193,6 +194,12 @@ namespace Types{
     id: number;
     nom: string;
   }
+
+  export type Matiere = "FRANC" | "MATHS" | "ESP2" | "TECHN" | "PH_CH" | "ANGL1" |
+     "SVT" | "EPS" | "A-PLA" | "HI-GE" | "ELOQ" | "MUSIQ"
+
+  export type Trimestre = "A001" | "A002" | "A003"
+
 }
 
 export = Types

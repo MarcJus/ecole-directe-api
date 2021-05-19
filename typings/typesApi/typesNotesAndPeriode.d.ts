@@ -1,4 +1,4 @@
-declare namespace Marc {
+declare namespace Types {
     interface NotesAndPeriodes {
         code: number;
         token: string;
@@ -12,10 +12,11 @@ declare namespace Marc {
         LSUN: LSUN;
     }
     interface LSUN {
-        A001: A001[];
-        A002: A001[];
+        A001: Competences[];
+        A002: Competences[];
+        A003: Competences[];
     }
-    interface A001 {
+    interface Competences {
         cdt: boolean;
         codeMatiere: string;
         libelleMatiere: string;
@@ -134,7 +135,7 @@ declare namespace Marc {
     interface Periode {
         idPeriode: string;
         codePeriode: string;
-        periode: string;
+        periode: Trimestre;
         annuel: boolean;
         dateDebut: string;
         dateFin: string;
@@ -159,7 +160,7 @@ declare namespace Marc {
     }
     interface Discipline {
         id: number;
-        codeMatiere: string;
+        codeMatiere: Matiere;
         codeSousMatiere: string;
         discipline: string;
         moyenne: string;
@@ -180,5 +181,7 @@ declare namespace Marc {
         id: number;
         nom: string;
     }
+    type Matiere = "FRANC" | "MATHS" | "ESP2" | "TECHN" | "PH_CH" | "ANGL1" | "SVT" | "EPS" | "A-PLA" | "HI-GE" | "ELOQ" | "MUSIQ";
+    type Trimestre = "A001" | "A002" | "A003";
 }
-export default Marc;
+export = Types;

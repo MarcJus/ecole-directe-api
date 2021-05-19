@@ -1,5 +1,5 @@
 import ec from "node-ecole-directe"
-import {Note, DataNotes, Periode} from "./types"
+import {Note, DataNotes, Periode, Matiere, Trimestre} from "../typesApi/typesNotesAndPeriode"
 
 namespace Notes {
     export interface PropertiesNotes{
@@ -124,11 +124,6 @@ namespace Notes {
         }
         return false
     }
-
-    export type Matiere = "FRANC" | "MATHS" | "ESP2" | "TECHN" | "PH_CH" | "ANGL1" |
-     "SVT" | "EPS" | "A-PLA" | "HI-GE" | "ELOQ" | "MUSIQ"
-
-    export type Trimestre = "A001" | "A002" | "A003"
 
 }
 

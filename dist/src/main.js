@@ -27,7 +27,6 @@ function nombreNotes() {
         });
     });
 }
-nombreNotes();
 app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: false }));
 app.use((req, res, next) => {
@@ -35,8 +34,8 @@ app.use((req, res, next) => {
     next();
 });
 app.get("/", (req, res) => {
-    console.log("requete");
-    res.end();
+    res.header("Content-Type: text/html");
+    res.send("API Ecole Directe <a href=\"https://github.com/MarcJus/private-api-ecole-directe\">github</a>");
 });
 app.get("/notes", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const query = req.query;
