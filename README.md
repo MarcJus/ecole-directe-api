@@ -115,6 +115,7 @@ Parametres:
 * DESSIN = A-PLA
 * EPS = EPS
 * ELOQ = Eloquence
+* TECHN = Technologie
 
 ### Code des periodes:
 * A001 = premier trimestre
