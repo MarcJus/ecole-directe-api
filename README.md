@@ -10,6 +10,11 @@ La date doit être au format YYYY-MM-DD
 
 ```http
 POST /devoirs/?date=<DATE>
+Content-Disposition: form-data; name=username
+Nom d'utilisateur
+
+Content-Disposition: form-data; name=username
+Mot de passe
 ```
 ### Reponse:
 ```json
@@ -95,6 +100,11 @@ La date est au format YYYY-MM-DD
 
 ```http
 POST /notes/?periode=<PERIODE>&matiere=<MATIERE>&note=<NOTE>&lower=<LOWER>&higher=<HIGHER>
+Content-Disposition: form-data; name=username
+Nom d'utilisateur
+
+Content-Disposition: form-data; name=username
+Mot de passe
 ```
 Parametres: 
 * periode (optionnel) string : Trimestre de l'année (A001, A002, A003)
@@ -151,6 +161,11 @@ Les dates sont au format YYYY-MM-DD
 
 ```http
 POST /notes/moyennes/?periode=<PERIODE>
+Content-Disposition: form-data; name=username
+Nom d'utilisateur
+
+Content-Disposition: form-data; name=username
+Mot de passe
 ```
 
 Parametres:
