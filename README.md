@@ -172,7 +172,7 @@ Parametres:
 * periode (obligatoire) string : Trimestre de la moyenne. Le code est le même que pour les notes.
 
 ### Reponse : 
-* moyenne: string
+* moyenne
 
 ## Argent sur la carte de cantine
 
@@ -186,4 +186,4 @@ Mot de passe
 ```
 
 ### Reponse : 
-* argent
+* argent restant
