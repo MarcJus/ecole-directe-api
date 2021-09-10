@@ -164,4 +164,8 @@ Parametres:
 ```http
 POST /porte_monnaie/
 Content-Disposition: form-data; name=username
+Nom d'utilisateur
+
+Content-Disposition: form-data; name=username
+Mot de passe
 ```
