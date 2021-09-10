@@ -16,6 +16,11 @@ namespace Notes {
         periode: string,
     }
     
+    /**
+     * @async
+     * @param properties Propriétés pour récupérer les notes
+     * @returns {Promise<Note[]>} Liste des notes
+     */
     export async function getNotes (properties: PropertiesNotes):Promise<Note[]>{
         const notesReturn: Note[] = []
         await properties.eleve.then(async compte => {
@@ -97,6 +102,7 @@ namespace Notes {
                 moyenneReturn = notesTotal / nombreDeNotes
                 console.log("note total : "+notesTotal)
                 console.log("denominateur : "+nombreDeNotes)
+                console.log(moyenneReturn)
             })
         })
         return moyenneReturn

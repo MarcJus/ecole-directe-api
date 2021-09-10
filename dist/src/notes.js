@@ -97,6 +97,7 @@ var Notes;
                     moyenneReturn = notesTotal / nombreDeNotes;
                     console.log("note total : " + notesTotal);
                     console.log("denominateur : " + nombreDeNotes);
+                    console.log(moyenneReturn);
                 });
             }));
             return moyenneReturn;

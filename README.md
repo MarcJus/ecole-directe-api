@@ -4,12 +4,12 @@ API utilisant le module [node-ecole-directe](https://github.com/Androz2091/node-
 
 ## Devoirs
 
-2. Avec date
+1. Avec date
 
 La date doit être au format YYYY-MM-DD
 
 ```http
-GET /devoirs?date=<DATE>
+POST /devoirs/?date=<DATE>
 ```
 ### Reponse:
 ```json
@@ -94,7 +94,7 @@ La date est au format YYYY-MM-DD
 ## Notes
 
 ```http
-GET /notes?periode=<PERIODE>&matiere=<MATIERE>&note=<NOTE>&lower=<LOWER>&higher=<HIGHER>
+POST /notes/?periode=<PERIODE>&matiere=<MATIERE>&note=<NOTE>&lower=<LOWER>&higher=<HIGHER>
 ```
 Parametres: 
 * periode (optionnel) string : Trimestre de l'année (A001, A002, A003)
@@ -149,7 +149,7 @@ Les dates sont au format YYYY-MM-DD
 ## Moyennes
 
 ```http
-GET /notes/moyennes?periode=<PERIODE>
+POST /notes/moyennes/?periode=<PERIODE>
 ```
 
 Parametres:
@@ -157,3 +157,9 @@ Parametres:
 
 ### Reponse : 
 * moyenne: string
+
+## Argent sur la carte de cantine
+
+```http
+POST /porte_monnaie/
+```

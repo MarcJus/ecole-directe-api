@@ -79,7 +79,9 @@ app.get("/notes/moyenne/preview", (req, res) => __awaiter(void 0, void 0, void 0
         const periode = query.periode.toString();
         if (periode == "A001" || periode == "A002" || periode == "A003") {
             yield notes_1.default.getPreMoyenne(connection_1.default).then(value => {
+                res.sendStatus(200);
                 res.send(value);
+                console.log(value);
             }).catch(err => {
                 res.status(500).send(err);
             });
@@ -94,6 +96,11 @@ app.get("/notes/moyenne/preview", (req, res) => __awaiter(void 0, void 0, void 0
 }));
 app.get("/fetchNotes", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield notes_1.default.getNotesAndPeriode(connection_1.default).then(value => {
+        res.json(value);
+    });
+}));
+app.get("/fetchDevoirs", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    yield devoir_1.default.getDevoir({ eleve: connection_1.default }).then(value => {
         res.json(value);
     });
 }));

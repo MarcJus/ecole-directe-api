@@ -70,7 +70,9 @@ app.get("/notes/moyenne/preview", async (req: Request, res: Response) => {
         const periode = query.periode.toString()
         if(periode == "A001" || periode == "A002" || periode == "A003"){
             await notes.getPreMoyenne(connection).then(value => {
+                res.sendStatus(200)
                 res.send(value)
+                console.log(value)
             }).catch(err => {
                 res.status(500).send(err)
             })
@@ -84,6 +86,12 @@ app.get("/notes/moyenne/preview", async (req: Request, res: Response) => {
 
 app.get("/fetchNotes", async (req: Request, res: Response) => {
     await notes.getNotesAndPeriode(connection).then(value => {
+        res.json(value)
+    })
+})
+
+app.get("/fetchDevoirs", async (req: Request, res: Response) => {
+    await devoir.getDevoir({eleve: connection}).then(value => {
         res.json(value)
     })
 })

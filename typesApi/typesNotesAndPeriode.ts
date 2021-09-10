@@ -106,8 +106,8 @@ namespace Types{
   
   export interface Note {
     devoir: string;
-    codePeriode: string;
-    codeMatiere: string;
+    codePeriode: Trimestre;
+    codeMatiere: Matiere;
     libelleMatiere: string;
     codeSousMatiere: string;
     typeDevoir: string;
